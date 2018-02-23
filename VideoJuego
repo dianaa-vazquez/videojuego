@@ -1,0 +1,237 @@
+int pantalla=1;
+carta Luna;
+carta Sol;
+carta Robatierras;
+carta Tragahectareas;
+carta Humano;
+
+int jugador1;
+int jugador2;
+int carta1vida;
+int carta2vida;
+int carta1ataque;
+int carta2ataque;
+
+int turno=0;
+
+void setup(){
+  size(1300,800);
+  background(0,0,0);
+  Luna=new carta(3,10,"Luna",1);
+  Sol=new carta(2,12,"Sol",2);
+  Humano=new carta(10,7,"Humano",3);
+  Tragahectareas=new carta(5,3,"Tragahectareas",4);
+  Robatierras=new carta(2,4,"Robatierras",5);
+}
+
+
+void draw(){
+  if (pantalla==1){
+  inicio();
+ 
+    
+  }
+  
+  if (pantalla==2){
+    //background(255);
+    seleccion();
+    escoje();
+  }
+  
+  if (pantalla==3){
+    pelea();
+    batallad();
+  }
+  if (pantalla==4){
+    fin();
+  }
+  //Luna.display();
+  //Sol.display();
+  //Humano.display();
+  //Tragahectareas.display();
+  //Robatierras.display();
+  
+}
+void inicio(){
+  background(0,0,0);
+  textSize(60);
+  fill(#AC81FF);
+  text("El hombre que escondio el Sol y la Luna",100,100 );
+  fill(#C43E31);
+  text("Press 5",500,700);
+  if(key=='5'){
+   pantalla=2; 
+  }
+}
+
+ void seleccion(){
+   background(0,0,0);
+   Luna.display();
+   Sol.display();
+   Humano.display();
+   Tragahectareas.display();
+   Robatierras.display();
+ }
+ 
+ 
+ void escoje(){
+   if(key =='a'){
+     jugador1=1;
+     carta1vida=Luna.vida;
+     carta1ataque=Luna.ataque;
+ }
+  if(key=='b'){
+    jugador2=1;
+    carta2vida=Sol.vida;
+    carta2ataque=Sol.ataque;
+  }
+    if((carta1vida!=0) && (carta2vida!=0)){
+      pantalla=3;
+    }
+ }
+ void batallad(){
+   if(jugador1==1){
+     Luna.display();
+    
+   }
+   if(jugador2==1){
+     Sol.display();
+   }
+   
+ }
+  void pelea(){
+    background(130);
+    if(turno==0){
+      if(key=='c'){
+        float a=random(0,1);
+        if(1>=a & a>=0.5){
+          carta2vida=carta2vida-carta1ataque;
+          
+    }
+    
+    else{
+      carta1vida=carta1vida-1;
+    }
+    if(carta2vida<=0){
+      pantalla=4;
+    }
+    else{
+      turno=1;
+      println(carta2vida);
+    }
+      } }
+   
+       if(turno==1){
+      if(key=='n'){
+        float a2=random(0,1);
+        if(1>=a2 & a2>=0.5){
+          carta1vida=carta1vida-carta2ataque;
+          
+    }
+    
+    else{
+      carta2vida=carta2vida-1;
+    }
+    if(carta1vida<=0){
+      pantalla=4;
+    }
+    else{
+      turno=0;
+      println(carta1vida);
+    }
+      } }
+  }
+  
+void fin(){
+  background(200);
+  
+  
+  
+
+}
+class carta {
+   int ataque;
+   int vida;
+   String nombre;
+  int personaje;
+  carta (int ataque_, int vida_, String nombre_, int personaje_)
+   {
+    ataque=ataque_;
+    vida=vida_;
+    nombre=nombre_;
+    personaje=personaje_;
+  }
+  void display(){
+   if (personaje==1){
+     fill(255);
+     stroke(255);
+     scale(2);
+  beginShape();
+  vertex(30,20);
+  bezierVertex (80,30,80,75,30,95);
+  bezierVertex(50,80,60,25,30,20);
+  endShape();
+     
+   }
+   if (personaje==2){
+     stroke(255);
+     fill(#EAC805);
+  ellipse(200,60,60,60);
+  fill(#BCA102);
+  ellipse(240,60,10,10);
+  fill(#BCA102);
+  ellipse(160,60,10,10);
+  fill(#BCA102);
+  ellipse(199,102,10,10);
+  fill(#BCA102);
+  ellipse(199,20,10,10);   
+   }
+    if(personaje==3){
+       stroke(255);
+      fill(#F2BE9F);
+  ellipse(350, 40, 25,25);
+  ellipse(345, 40, 5,5);
+  ellipse(355 ,40, 5,5);
+  fill(#824083);
+  rect(338,52,25,30);
+  fill(#3E16F5);
+  rect(330,60,10,5);
+  rect(360,60,10,5);
+  fill(#3E16F5);
+  rect(343,80,5,23);
+  rect(354,80,5,23);
+      
+    
+    
+  }
+  if(personaje==4){
+     stroke(255);
+  fill(#FFFFFF);
+  ellipse(413,55,5,5);
+  ellipse(415,60,8,8);
+  ellipse(420,64,10,10);
+  fill(#9DFFBE);
+  ellipse(430,60,20,20);
+  ellipse(436,53,20,20);
+  ellipse(450,48,20,20);
+  ellipse(455,40,20,20);
+  fill(#030303);
+  ellipse(453,40,3,3);
+  ellipse(460,40,3,3);
+  
+}
+ if (personaje==5){
+ fill(#D30D3F);
+  noStroke();
+  quad(500, 80, 520,10, 540, 100, 580, 40);
+  fill(#FAFAFA);
+  ellipse(540,50,25,25);
+  fill(#5A1828);
+  ellipse(532,46,5,5);
+  ellipse(545,46,5,5);
+  fill(#030303);
+  ellipse(540,55,8,8);
+
+  }
+  }
+}
